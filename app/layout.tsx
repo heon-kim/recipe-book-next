@@ -1,4 +1,6 @@
+import Header from './components/header';
 import './globals.css';
+import { SessionProvider } from 'next-auth/react';
 
 export default function RootLayout({
   children,
@@ -8,14 +10,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <header className='flex justify-between'>
-          <h1>나만의 레시피</h1>
-          <div>
-            <button>레시피 추가</button>
-            <button>로그아웃</button>
-          </div>
-        </header>
-        {children}
+        <SessionProvider>
+          <Header />
+        </SessionProvider>
+        <main className='h-dvh'>{children}</main>
         <footer className='row-start-3 flex gap-6 flex-wrap items-center justify-center'></footer>
       </body>
     </html>
