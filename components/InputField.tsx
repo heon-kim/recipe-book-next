@@ -8,7 +8,7 @@ interface InputFieldProps {
   required: boolean;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  showButton: boolean;
+  showButton?: boolean;
   onAdd?: () => void;
 }
 const InputField: React.FC<InputFieldProps> = ({
