@@ -57,7 +57,7 @@ const Detail: React.FC = () => {
         const newTime = prev[index] - 1;
         if (newTime <= 0) {
           clearInterval(interval);
-          alert('타이머가 완료되었습니다.');
+          alert(`"${recipe?.steps[index]}" 타이머가 완료되었습니다.`);
           return { ...prev, [index]: 0 };
         }
         return { ...prev, [index]: newTime };
@@ -116,7 +116,7 @@ const Detail: React.FC = () => {
                 />
                 <button
                   onClick={() => handleStartTimer(index)}
-                  className='bg-green-500 text-white px-4 py-1 rounded'
+                  className='bg-slate-500 text-white px-4 py-1 rounded'
                 >
                   타이머 시작
                 </button>
@@ -174,7 +174,7 @@ const Detail: React.FC = () => {
                 </span>
                 <button
                   onClick={() => handleRestore(mod)}
-                  className='bg-yellow-500 text-white px-3 py-1 rounded'
+                  className='bg-slate-500 text-white px-3 py-1 rounded'
                 >
                   이 버전으로 복원
                 </button>
@@ -193,13 +193,13 @@ const Detail: React.FC = () => {
         </button>
         <button
           onClick={handleDelete}
-          className='bg-red-500 text-white px-4 py-2 rounded'
+          className='bg-slate-700 text-white px-4 py-2 rounded'
         >
           삭제
         </button>
         <button
           onClick={handleBack}
-          className='bg-gray-500 text-white px-4 py-2 rounded'
+          className='bg-slate-500 text-white px-4 py-2 rounded'
         >
           목록으로
         </button>
