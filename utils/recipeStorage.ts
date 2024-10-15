@@ -3,7 +3,7 @@ export interface Recipe {
   tags: string[];
   ingredients: string[];
   steps: string[];
-  history: RecipeHistory[];
+  history?: RecipeHistory[];
 }
 
 export interface RecipeHistory {

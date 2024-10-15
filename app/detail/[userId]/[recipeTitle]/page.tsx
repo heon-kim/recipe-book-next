@@ -7,7 +7,7 @@ import {
   Recipe,
   saveRecipe,
   deleteRecipe,
-} from '@/utils/recipeStorage';
+} from '../../../../utils/recipeStorage';
 
 interface Modification {
   version: number;
@@ -68,7 +68,7 @@ const Detail: React.FC = () => {
   const handleRestore = (modification: Modification) => {
     if (window.confirm(`버전 ${modification.version}로 복원하시겠습니까?`)) {
       saveRecipe(modification.recipe);
-      setRecipe(findRecipe(recipeTitle));
+      setRecipe(findRecipe(recipeTitle) || null);
       alert('레시피가 복원되었습니다.');
     }
   };

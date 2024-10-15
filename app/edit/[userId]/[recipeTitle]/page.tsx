@@ -2,8 +2,12 @@
 
 import { useRouter, usePathname } from 'next/navigation';
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import InputField from '@/components/InputField';
-import { saveRecipe, findRecipe, Recipe } from '@/utils/recipeStorage';
+import InputField from '../../../../components/InputField';
+import {
+  saveRecipe,
+  findRecipe,
+  Recipe,
+} from '../../../../utils/recipeStorage';
 
 const EditRecipe: React.FC = () => {
   const router = useRouter();
