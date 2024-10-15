@@ -4,20 +4,32 @@ import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { getRecipes } from '../utils/recipeStorage';
 
-// getRecipes 함수 import
+interface Recipe {
+  title: string;
+  tags: string[];
+  ingredients: string[];
+  steps: string[];
+}
 
 export default function RecipeList() {
-  const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const router = useRouter();
-  const user = localStorage.getItem('loggedUser'); // 사용자 ID 가져오기
+  const user =
+    typeof window !== 'undefined' ? localStorage.getItem('loggedUser') : '';
 
   useEffect(() => {
-    const recipes = getRecipes(); // 로컬 스토리지에서 레시피 목록 가져오기
-    setRecipes(recipes);
+    if (typeof window !== 'undefined') {
+      const recipes = getRecipes();
+      setRecipes(recipes);
+    }
   }, []);
 
-  const handleDetailClick = (recipeTitle) => {
-    router.push(`/detail/${user}/${encodeURIComponent(recipeTitle)}`);
+  const handleDetailClick = (recipeTitle: string) => {
+    if (user) {
+      router.push(`/detail/${user}/${encodeURIComponent(recipeTitle)}`);
+    } else {
+      alert('로그인한 사용자만 레시피를 볼 수 있습니다.');
+    }
   };
 
   return (
@@ -32,10 +44,8 @@ export default function RecipeList() {
               key={index}
               className='border p-4 rounded-md shadow-md flex flex-col gap-4'
             >
-              {/* 레시피 제목 */}
               <h2 className='text-xl font-bold'>{recipe.title}</h2>
 
-              {/* 태그 목록 */}
               <div className='text-sm text-gray-500'>
                 {recipe.tags.map((tag, idx) => (
                   <span key={idx} className='mr-2'>
@@ -44,7 +54,6 @@ export default function RecipeList() {
                 ))}
               </div>
 
-              {/* 자세히 보기 버튼 */}
               <button
                 className='bg-blue-500 text-white px-4 py-2 rounded-md'
                 onClick={() => handleDetailClick(recipe.title)}

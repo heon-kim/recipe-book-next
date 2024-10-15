@@ -1,44 +1,48 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import InputField from '../../components/InputField';
 import { saveRecipe } from '../../utils/recipeStorage';
+import { Recipe } from '../../utils/recipeStorage';
 
 export default function Add() {
-  const [title, setTitle] = useState('');
-  const [tag, setTag] = useState('');
-  const [ingredient, setIngredient] = useState('');
-  const [step, setStep] = useState('');
+  const [title, setTitle] = useState<string>('');
+  const [tag, setTag] = useState<string>('');
+  const [ingredient, setIngredient] = useState<string>('');
+  const [step, setStep] = useState<string>('');
 
-  const [tags, setTags] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-  const [steps, setSteps] = useState([]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [ingredients, setIngredients] = useState<string[]>([]);
+  const [steps, setSteps] = useState<string[]>([]);
 
   const router = useRouter();
 
   const handleAddTag = () => {
     if (tag.trim()) {
-      setTags([...tags, tag]);
+      setTags((prevTags) => [...prevTags, tag.trim()]);
       setTag('');
     }
   };
 
   const handleAddIngredient = () => {
     if (ingredient.trim()) {
-      setIngredients([...ingredients, ingredient]);
+      setIngredients((prevIngredients) => [
+        ...prevIngredients,
+        ingredient.trim(),
+      ]);
       setIngredient('');
     }
   };
 
   const handleAddStep = () => {
     if (step.trim()) {
-      setSteps([...steps, step]);
+      setSteps((prevSteps) => [...prevSteps, step.trim()]);
       setStep('');
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!title.trim()) {
@@ -61,8 +65,8 @@ export default function Add() {
       return;
     }
 
-    const newRecipe = {
-      title,
+    const newRecipe: Recipe = {
+      title: title.trim(),
       tags,
       ingredients,
       steps,
@@ -71,6 +75,22 @@ export default function Add() {
     saveRecipe(newRecipe);
 
     router.push('/');
+  };
+
+  const handleTagChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTag(e.target.value);
+  };
+
+  const handleIngredientChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIngredient(e.target.value);
+  };
+
+  const handleStepChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setStep(e.target.value);
+  };
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
   };
 
   useEffect(() => {
@@ -88,9 +108,9 @@ export default function Add() {
           placeholder='레시피 제목을 입력하세요'
           required={true}
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={handleTitleChange}
           showButton={false}
-        ></InputField>
+        />
 
         <InputField
           htmlFor='tag'
@@ -99,10 +119,10 @@ export default function Add() {
           placeholder='태그를 입력하세요'
           required={false}
           value={tag}
-          onChange={(e) => setTag(e.target.value)}
+          onChange={handleTagChange}
           showButton={true}
           onAdd={handleAddTag}
-        ></InputField>
+        />
         {tags.length > 0 && (
           <div>
             <ul className='list-disc pl-5'>
@@ -112,6 +132,7 @@ export default function Add() {
             </ul>
           </div>
         )}
+
         <InputField
           htmlFor='ingredient'
           type='text'
@@ -119,10 +140,10 @@ export default function Add() {
           placeholder='재료를 입력하세요'
           required={false}
           value={ingredient}
-          onChange={(e) => setIngredient(e.target.value)}
+          onChange={handleIngredientChange}
           showButton={true}
           onAdd={handleAddIngredient}
-        ></InputField>
+        />
         {ingredients.length > 0 && (
           <div>
             <ul className='list-disc pl-5'>
@@ -132,6 +153,7 @@ export default function Add() {
             </ul>
           </div>
         )}
+
         <InputField
           htmlFor='step'
           type='text'
@@ -139,10 +161,10 @@ export default function Add() {
           placeholder='조리 과정을 입력하세요'
           required={false}
           value={step}
-          onChange={(e) => setStep(e.target.value)}
+          onChange={handleStepChange}
           onAdd={handleAddStep}
           showButton={true}
-        ></InputField>
+        />
         {steps.length > 0 && (
           <div>
             <ul className='list-disc pl-5'>
@@ -152,9 +174,10 @@ export default function Add() {
             </ul>
           </div>
         )}
+
         <button
           type='submit'
-          className='bg-slate-500 text-left w-fit px-4 py-2 rounded-md text-white'
+          className='mt-3 bg-slate-500 w-fit px-6 py-2 rounded-md text-white'
         >
           레시피 저장
         </button>

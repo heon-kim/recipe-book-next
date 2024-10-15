@@ -1,4 +1,4 @@
-interface Recipe {
+export interface Recipe {
   title: string;
   tags: string[];
   ingredients: string[];
