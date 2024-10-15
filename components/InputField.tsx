@@ -35,7 +35,7 @@ const InputField: React.FC<InputFieldProps> = ({
         onChange={onChange}
         required={required}
       />
-      {showButton && (
+      {showButton && onAdd && (
         <button
           type='button'
           className='ml-2 w-20 bg-slate-500 text-white rounded-md'
