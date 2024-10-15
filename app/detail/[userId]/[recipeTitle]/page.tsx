@@ -68,7 +68,7 @@ const Detail: React.FC = () => {
   const handleRestore = (modification: Modification) => {
     if (window.confirm(`버전 ${modification.version}로 복원하시겠습니까?`)) {
       saveRecipe(modification.recipe);
-      setRecipe(modification.recipe);
+      setRecipe(findRecipe(recipeTitle));
       alert('레시피가 복원되었습니다.');
     }
   };
