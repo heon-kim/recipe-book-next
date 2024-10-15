@@ -15,6 +15,7 @@ const Login: React.FC = () => {
       const email = session.user.email;
       saveUser({ email, password: '' });
       localStorage.setItem('loggedUser', email);
+      window.location.href = '/';
     }
   }, [session]);
 

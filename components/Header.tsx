@@ -17,7 +17,6 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    console.log(session);
     if (session?.user) {
       setIsLoggedIn(true);
     }
@@ -30,6 +29,7 @@ export default function Header() {
     localStorage.removeItem('loggedUser');
     setIsLoggedIn(false);
     alert('로그아웃 성공!');
+    router.push('/');
   };
   return (
     <header className='flex justify-between items-center bg-slate-700 text-white p-3'>
