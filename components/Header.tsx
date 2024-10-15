@@ -35,9 +35,12 @@ export default function Header() {
       <div className='flex gap-3'>
         {isLoggedIn ? (
           <>
-            <button className='bg-white text-slate-700 p-2 rounded-md hover:bg-slate-100'>
+            <Link
+              href='/add'
+              className='bg-white text-slate-700 p-2 rounded-md hover:bg-slate-100'
+            >
               레시피 추가
-            </button>
+            </Link>
             <button
               onClick={handleLogout}
               className='p-2 rounded-md hover:bg-slate-800'
