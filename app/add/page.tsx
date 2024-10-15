@@ -167,11 +167,11 @@ export default function Add() {
         />
         {steps.length > 0 && (
           <div>
-            <ul className='list-disc pl-5'>
+            <ol className='list-decimal pl-5'>
               {steps.map((t, index) => (
                 <li key={index}>{t}</li>
               ))}
-            </ul>
+            </ol>
           </div>
         )}
 
