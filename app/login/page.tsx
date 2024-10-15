@@ -1,29 +1,44 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { signIn } from '@/auth';
+import { useEffect, useState } from 'react';
+import { saveUser, findUser } from '@/utils/userStorage';
+import { signIn, useSession } from 'next-auth/react';
 
 const Login: React.FC = () => {
+  const { data: session } = useSession();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
+
+  useEffect(() => {
+    if (session?.user?.email) {
+      const email = session.user.email;
+      saveUser({ email, password: '' });
+      localStorage.setItem('loggedUser', email);
+    }
+  }, [session]);
+
+  useEffect(() => {
+    const loggedUser = localStorage.getItem('loggedUser');
+    if (loggedUser) {
+      window.location.href = '/';
+    }
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const storedEmail = localStorage.getItem('email');
-    const storedPassword = localStorage.getItem('password');
+    const storedUser = findUser(email);
 
-    if (email !== storedEmail) {
+    if (!storedUser || email !== storedUser.email) {
       alert('존재하지 않는 회원입니다.');
       return;
     }
 
-    if (password === storedPassword) {
+    if (password === storedUser.password) {
+      localStorage.setItem('loggedUser', email);
       alert('로그인 성공!');
-      router.push('/');
+      window.location.href = '/';
     } else {
       alert('비밀번호가 잘못되었습니다.');
     }
@@ -71,42 +86,33 @@ const Login: React.FC = () => {
         </form>
 
         <div className='flex flex-col gap-2'>
-          <form
-            action={async () => {
-              await signIn('github');
-            }}
+          <button
+            type='submit'
+            className='w-full flex items-center justify-center gap-2 border rounded-md p-3'
+            // onClick={() => handleProviderSignIn('github')}
+            onClick={() => signIn('github')}
           >
-            <button
-              type='submit'
-              className='w-full flex items-center justify-center gap-2 border rounded-md p-3'
-            >
-              <Image
-                src='/img/github-mark.svg'
-                alt='github mark'
-                width={16}
-                height={16}
-              ></Image>
-              <span>Sign In with GitHub</span>
-            </button>
-          </form>
-          <form
-            action={async () => {
-              await signIn('google');
-            }}
+            <Image
+              src='/img/github-mark.svg'
+              alt='github mark'
+              width={16}
+              height={16}
+            ></Image>
+            <span>Sign In with GitHub</span>
+          </button>
+          <button
+            type='submit'
+            className='w-full flex items-center justify-center gap-2 border rounded-md p-3'
+            onClick={() => signIn('google')}
           >
-            <button
-              type='submit'
-              className='w-full flex items-center justify-center gap-2 border rounded-md p-3'
-            >
-              <Image
-                src='/img/google-mark.png'
-                alt='google mark'
-                width={16}
-                height={16}
-              ></Image>
-              <span>Sign In with Google</span>
-            </button>
-          </form>
+            <Image
+              src='/img/google-mark.png'
+              alt='google mark'
+              width={16}
+              height={16}
+            ></Image>
+            <span>Sign In with Google</span>
+          </button>
         </div>
       </div>
     </div>

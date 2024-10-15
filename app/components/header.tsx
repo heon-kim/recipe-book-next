@@ -2,24 +2,30 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 export default function Header() {
-  const { data: session } = useSession();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { data: session } = useSession();
 
   useEffect(() => {
-    // localStorage에서 사용자 정보를 확인
-    const email = localStorage.getItem('email');
-    const password = localStorage.getItem('password');
-    if (email && password) {
+    if (localStorage.getItem('loggedUser')) {
       setIsLoggedIn(true);
     }
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('email');
-    localStorage.removeItem('password');
+  useEffect(() => {
+    console.log(session);
+    if (session?.user) {
+      setIsLoggedIn(true);
+    }
+  }, [session]);
+
+  const handleLogout = async () => {
+    if (session?.user) {
+      signOut();
+    }
+    localStorage.removeItem('loggedUser');
     setIsLoggedIn(false);
     alert('로그아웃 성공!');
   };
@@ -27,7 +33,7 @@ export default function Header() {
     <header className='flex justify-between items-center bg-slate-700 text-white p-3'>
       <h1 className='font-extrabold text-lg'>나만의 레시피</h1>
       <div className='flex gap-3'>
-        {isLoggedIn || session?.user ? (
+        {isLoggedIn ? (
           <>
             <button className='bg-white text-slate-700 p-2 rounded-md hover:bg-slate-100'>
               레시피 추가

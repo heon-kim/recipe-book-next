@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### 1. 로그인 및 인증
 
-## Getting Started
+1. LocalStorage 사용하여 사용자별 데이터 처리
+2. 이메일, 구글, github 로그인 연동 (Next-auth 사용)
+3. 세션 관리 및 유지
+4. 로그인 상태에 따라 UI 변경, 접근 제한
 
-First, run the development server:
+### 2. 레시피 추가, 수정, 삭제
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. LocalStorage 사용하여 사용자별 데이터 저장
+2. 레시피 추가
+   1. 레시피 제목
+   2. 태그
+   3. 재료 목록
+   4. 조리 과정
+3. 레시피 조회
+   1. 전체 조회
+   2. 상세 조회
+      1. 조리과정의 타이머 및 알람 기능
+4. 레시피 수정
+   1. 수정 버전 기록
+   2. 수정 버전으로 복원
+5. 레시피 삭제

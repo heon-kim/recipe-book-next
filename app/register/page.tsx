@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { signIn } from '@/auth';
+import { saveUser, findUser } from '@/utils/userStorage';
+import { signIn } from 'next-auth/react';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,8 +11,11 @@ const Register: React.FC = () => {
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem('email', email);
-    localStorage.setItem('password', password);
+    if (findUser(email)) {
+      alert('이미 존재하는 이메일입니다.');
+      return;
+    }
+    saveUser({ email, password });
     alert('회원가입 성공! 로그인 페이지로 이동합니다.');
     window.location.href = '/login';
   };
@@ -57,42 +61,28 @@ const Register: React.FC = () => {
           </button>
         </form>
         <div className='flex flex-col gap-2'>
-          <form
-            action={async () => {
-              await signIn('github');
-            }}
+          <button type='submit' onClick={() => signIn('github')}>
+            <Image
+              src='/img/github-mark.svg'
+              alt='github mark'
+              width={16}
+              height={16}
+            ></Image>
+            <span>Sign In with GitHub</span>
+          </button>
+          <button
+            type='submit'
+            className='w-full flex items-center justify-center gap-2 border rounded-md p-3'
+            onClick={() => signIn('google')}
           >
-            <button
-              type='submit'
-              className='w-full flex items-center justify-center gap-2 border rounded-md p-3'
-            >
-              <Image
-                src='/img/github-mark.svg'
-                alt='github mark'
-                width={16}
-                height={16}
-              ></Image>
-              <span>Start with GitHub</span>
-            </button>
-          </form>
-          <form
-            action={async () => {
-              await signIn('google');
-            }}
-          >
-            <button
-              type='submit'
-              className='w-full flex items-center justify-center gap-2 border rounded-md p-3'
-            >
-              <Image
-                src='/img/google-mark.png'
-                alt='google mark'
-                width={16}
-                height={16}
-              ></Image>
-              <span>Start with Google</span>
-            </button>
-          </form>
+            <Image
+              src='/img/google-mark.png'
+              alt='google mark'
+              width={16}
+              height={16}
+            ></Image>
+            <span>Sign In with Google</span>
+          </button>
         </div>
       </div>
     </div>
