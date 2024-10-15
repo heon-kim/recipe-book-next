@@ -9,6 +9,7 @@ const InputField = ({
   value,
   onChange,
   showButton,
+  onAdd,
 }) => (
   <label htmlFor={htmlFor}>
     <p className='mb-1'>{label}</p>
@@ -27,6 +28,7 @@ const InputField = ({
         <button
           type='button'
           className='ml-2 w-20 bg-slate-500 text-white rounded-md'
+          onClick={onAdd}
         >
           추가
         </button>
