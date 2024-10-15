@@ -1,10 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 
 export default function Header() {
+  const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: session } = useSession();
 
@@ -31,7 +33,12 @@ export default function Header() {
   };
   return (
     <header className='flex justify-between items-center bg-slate-700 text-white p-3'>
-      <h1 className='font-extrabold text-lg'>나만의 레시피</h1>
+      <h1
+        className='font-extrabold text-lg hover:cursor-pointer'
+        onClick={() => router.push('/')}
+      >
+        나만의 레시피
+      </h1>
       <div className='flex gap-3'>
         {isLoggedIn ? (
           <>
