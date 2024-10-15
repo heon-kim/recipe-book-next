@@ -61,7 +61,11 @@ const Register: React.FC = () => {
           </button>
         </form>
         <div className='flex flex-col gap-2'>
-          <button type='submit' onClick={() => signIn('github')}>
+          <button
+            type='submit'
+            className='w-full flex items-center justify-center gap-2 border rounded-md p-3'
+            onClick={() => signIn('github')}
+          >
             <Image
               src='/img/github-mark.svg'
               alt='github mark'

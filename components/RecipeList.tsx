@@ -36,10 +36,8 @@ const RecipeList: React.FC = () => {
               key={index}
               className='border p-4 rounded-md shadow-md flex flex-col gap-4'
             >
-              {/* 레시피 제목 */}
               <h2 className='text-xl font-bold'>{recipe.title}</h2>
 
-              {/* 태그 목록 */}
               <div className='text-sm text-gray-500'>
                 {recipe.tags.map((tag, idx) => (
                   <span key={idx} className='mr-2'>
@@ -48,7 +46,6 @@ const RecipeList: React.FC = () => {
                 ))}
               </div>
 
-              {/* 자세히 보기 버튼 */}
               <button
                 className='bg-blue-500 text-white px-4 py-2 rounded-md'
                 onClick={() => handleDetailClick(recipe.title)}
