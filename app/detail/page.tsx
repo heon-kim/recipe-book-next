@@ -1,13 +1,13 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import {
   findRecipe,
   Recipe,
   saveRecipe,
   deleteRecipe,
-} from '../../../../utils/recipeStorage';
+} from '../../utils/recipeStorage';
 
 interface Modification {
   version: number;
@@ -17,11 +17,11 @@ interface Modification {
 
 const Detail: React.FC = () => {
   const router = useRouter();
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const pathSegments = pathname?.split('/') || [];
-  const userId = pathSegments[2];
-  const recipeTitle = decodeURIComponent(pathSegments[3] || '');
+  const recipeTitle = searchParams.get('recipeTitle') || '';
+  const userId =
+    typeof window !== 'undefined' ? localStorage.getItem('loggedUser') : null;
 
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [timers, setTimers] = useState<{ [key: number]: number }>({});
@@ -82,7 +82,7 @@ const Detail: React.FC = () => {
   };
 
   const handleEdit = () => {
-    router.push(`/edit/${userId}/${encodeURIComponent(recipeTitle)}`);
+    router.push(`/edit?recipeTitle=${encodeURIComponent(recipeTitle)}`);
   };
 
   const handleBack = () => {

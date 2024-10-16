@@ -20,7 +20,7 @@ const RecipeList: React.FC = () => {
 
   const handleDetailClick = (recipeTitle: string) => {
     if (user) {
-      router.push(`/detail/${user}/${encodeURIComponent(recipeTitle)}`);
+      router.push(`/detail?recipeTitle=${encodeURIComponent(recipeTitle)}`);
     }
   };
 

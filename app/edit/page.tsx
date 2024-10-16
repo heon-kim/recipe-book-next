@@ -1,21 +1,17 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import InputField from '../../../../components/InputField';
-import {
-  saveRecipe,
-  findRecipe,
-  Recipe,
-} from '../../../../utils/recipeStorage';
+import InputField from '../../components/InputField';
+import { saveRecipe, findRecipe, Recipe } from '../../utils/recipeStorage';
 
 const EditRecipe: React.FC = () => {
   const router = useRouter();
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const pathSegments = pathname?.split('/') || [];
-  const userId = pathSegments[2];
-  const recipeTitle = decodeURIComponent(pathSegments[3] || '');
+  const recipeTitle = searchParams.get('recipeTitle') || '';
+  const userId =
+    typeof window !== 'undefined' ? localStorage.getItem('loggedUser') : null;
 
   const [title, setTitle] = useState<string>('');
   const [tag, setTag] = useState<string>('');
@@ -98,7 +94,9 @@ const EditRecipe: React.FC = () => {
 
     saveRecipe(updatedRecipe);
 
-    router.push(`/detail/${userId}/${encodeURIComponent(updatedRecipe.title)}`);
+    router.push(
+      `/detail?recipeTitle=${encodeURIComponent(updatedRecipe.title)}`
+    );
   };
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
