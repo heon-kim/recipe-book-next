@@ -11,16 +11,9 @@ export default function Header() {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (localStorage.getItem('loggedUser')) {
-      setIsLoggedIn(true);
-    }
+    const user = localStorage.getItem('loggedUser');
+    setIsLoggedIn(!!user);
   }, []);
-
-  useEffect(() => {
-    if (session?.user) {
-      setIsLoggedIn(true);
-    }
-  }, [session]);
 
   const handleLogout = async () => {
     if (session?.user) {
