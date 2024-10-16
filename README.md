@@ -11,7 +11,6 @@
 [📂 프로젝트 구조](#structure)<br>
 [🛠 실행](#run-deploy)<br>
 
----
 
 <br>
 
@@ -29,11 +28,10 @@
 
 ### [ 제작 기간 ]
 
-(2024.10.14 - 2024.10.16)
+2024.10.14 - 2024.10.16
 
 <p align="right"><a href="#top">⬆️Top</a></p>
 
----
 
 <br>
 
@@ -43,7 +41,7 @@ Next.js 14
 
 <p align="right"><a href="#top">⬆️Top</a></p>
 
----
+
 
 <br>
 
@@ -68,7 +66,6 @@ Next.js 14
 
 <p align="right"><a href="#top">⬆️Top</a></p>
 
----
 
 <br>
 
@@ -86,7 +83,6 @@ Next.js 14
 
 <p align="right"><a href="#top">⬆️Top</a></p>
 
----
 
 <br>
 
@@ -129,7 +125,6 @@ Next.js 14
 
 <p align="right"><a href="#top">⬆️Top</a></p>
 
----
 
 <br>
 
