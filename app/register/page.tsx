@@ -35,7 +35,7 @@ const Register: React.FC = () => {
 
   return (
     <div className='h-full flex justify-center items-center'>
-      <div className='w-96 shadow-md p-8 flex flex-col gap-6 rounded-md'>
+      <div className='w-96  shadow-md p-8 flex flex-col gap-6 rounded-md'>
         <h2 className='text-lg font-bold'>회원가입</h2>
         <AuthForm
           email={email}

@@ -96,14 +96,19 @@ const Detail: React.FC = () => {
   }
 
   return (
-    <div>
-      <h1 className='text-3xl font-bold mb-4'>{recipe.title}</h1>
+    <div className='bg-gray-50 p-8 rounded-lg shadow-xl max-w-7xl mx-auto'>
+      <h1 className='text-3xl font-extrabold text-gray-800 mb-6 tracking-wide'>
+        {recipe.title}
+      </h1>
 
-      <div className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>조리 과정</h2>
-        <ol className='list-decimal list-inside space-y-4'>
+      <div className='mb-10'>
+        <h2 className='text-2xl font-semibold text-gray-700 mb-4'>조리 과정</h2>
+        <ol className='list-decimal list-inside space-y-6 text-lg'>
           {recipe.steps.map((step, index) => (
-            <li key={index} className='flex flex-col'>
+            <li
+              key={index}
+              className='flex flex-col bg-white p-4 rounded-lg shadow-sm'
+            >
               <span>{step}</span>
               <Timer
                 index={index}
@@ -117,50 +122,60 @@ const Detail: React.FC = () => {
         </ol>
       </div>
 
-      <div className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>태그</h2>
-        <div className='flex flex-wrap gap-2'>
+      <div className='mb-10'>
+        <h2 className='text-2xl font-semibold text-gray-700 mb-4'>태그</h2>
+        <div className='flex flex-wrap gap-3'>
           {recipe.tags.map((tag, index) => (
-            <span key={index} className='text-sm text-blue-500'>
+            <span
+              key={index}
+              className='bg-blue-100 text-blue-600 text-sm font-medium px-3 py-1 rounded-full'
+            >
               #{tag}
             </span>
           ))}
         </div>
       </div>
 
-      <div className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>재료 목록</h2>
-        <ul className='list-disc list-inside'>
+      <div className='mb-10'>
+        <h2 className='text-2xl font-semibold text-gray-700 mb-4'>재료 목록</h2>
+        <ul className='list-disc list-inside space-y-2 text-lg'>
           {recipe.ingredients.map((ingredient, index) => (
-            <li key={index}>{ingredient}</li>
+            <li key={index} className='bg-gray-100 p-2 rounded-md'>
+              {ingredient}
+            </li>
           ))}
         </ul>
       </div>
 
-      <div className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>조리 과정</h2>
-        <ol className='list-decimal list-inside space-y-2'>
+      <div className='mb-10'>
+        <h2 className='text-2xl font-semibold text-gray-700 mb-4'>조리 과정</h2>
+        <ol className='list-decimal list-inside space-y-2 text-lg'>
           {recipe.steps.map((step, index) => (
-            <li key={index}>{step}</li>
+            <li key={index} className='bg-gray-100 p-2 rounded-md'>
+              {step}
+            </li>
           ))}
         </ol>
       </div>
 
-      <div className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>수정 기록</h2>
+      <div className='mb-10'>
+        <h2 className='text-2xl font-semibold text-gray-700 mb-4'>수정 기록</h2>
         {!recipe.history || recipe.history.length === 0 ? (
-          <p>수정 기록이 없습니다.</p>
+          <p className='text-gray-500'>수정 기록이 없습니다.</p>
         ) : (
-          <ul className='space-y-2'>
+          <ul className='space-y-4'>
             {recipe.history?.map((mod, index) => (
-              <li key={index} className='flex items-center justify-between'>
-                <span>
+              <li
+                key={index}
+                className='flex items-center justify-between bg-white p-4 rounded-lg shadow-sm'
+              >
+                <span className='text-gray-600'>
                   버전 {mod.version} (수정일:{' '}
                   {new Date(mod.date).toLocaleString()})
                 </span>
                 <button
                   onClick={() => handleRestore(mod)}
-                  className='bg-slate-500 text-white px-3 py-1 rounded'
+                  className='bg-slate-500 hover:bg-slate-600 text-white px-3 py-1 rounded transition duration-200 ease-in-out'
                 >
                   이 버전으로 복원
                 </button>
@@ -173,19 +188,19 @@ const Detail: React.FC = () => {
       <div className='flex space-x-4'>
         <button
           onClick={handleEdit}
-          className='bg-blue-500 text-white px-4 py-2 rounded'
+          className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md transition duration-200 ease-in-out shadow-md'
         >
           수정
         </button>
         <button
           onClick={handleDelete}
-          className='bg-slate-700 text-white px-4 py-2 rounded'
+          className='bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-md transition duration-200 ease-in-out shadow-md'
         >
           삭제
         </button>
         <button
           onClick={handleBack}
-          className='bg-slate-500 text-white px-4 py-2 rounded'
+          className='bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-md transition duration-200 ease-in-out shadow-md'
         >
           목록으로
         </button>

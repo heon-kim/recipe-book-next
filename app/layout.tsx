@@ -9,10 +9,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body>
+      <body className='h-dvh flex flex-col'>
         <SessionProvider>
           <Header />
-          <main className='h-dvh p-5'>{children}</main>
+          <main className='h-full p-5'>{children}</main>
         </SessionProvider>
         <footer className='row-start-3 flex gap-6 flex-wrap items-center justify-center'></footer>
       </body>

@@ -47,7 +47,7 @@ const Login: React.FC = () => {
 
   return (
     <div className='h-full flex justify-center items-center'>
-      <div className='w-96 shadow-md p-8 flex flex-col gap-6 rounded-md'>
+      <div className='w-96 p-8 flex flex-col gap-6  bg-white shadow-lg rounded-lg'>
         <h2 className='text-lg font-bold'>로그인</h2>
         <AuthForm
           email={email}

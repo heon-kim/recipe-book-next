@@ -18,7 +18,7 @@ const Timer: React.FC<TimerProps> = ({
   onStartTimer,
 }) => {
   return (
-    <div className='mt-2 flex items-center space-x-2'>
+    <div className='mt-4 flex items-center space-x-4'>
       <input
         type='number'
         min='1'
@@ -27,16 +27,18 @@ const Timer: React.FC<TimerProps> = ({
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           onTimeChange(index, e.target.value)
         }
-        className='border rounded px-2 py-1 w-32'
+        className='border border-gray-300 rounded-md px-4 py-2 w-36 shadow-sm focus:ring-2 focus:ring-blue-400 transition duration-200 ease-in-out'
       />
+
       <button
         onClick={() => onStartTimer(index)}
-        className='bg-slate-500 text-white px-4 py-1 rounded'
+        className='bg-blue-500 hover:bg-blue-600 text-white font-semibold px-5 py-2 rounded-md shadow-sm transition duration-200 ease-in-out'
       >
         타이머 시작
       </button>
+
       {timer > 0 && (
-        <span className='text-red-500'>
+        <span className='text-2xl font-semibold text-red-600'>
           {Math.floor(timer / 60)}:{('0' + (timer % 60)).slice(-2)}
         </span>
       )}

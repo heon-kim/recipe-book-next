@@ -23,7 +23,7 @@ const InputField: React.FC<InputFieldProps> = ({
   onAdd,
 }) => (
   <label htmlFor={htmlFor}>
-    <p className='mb-1'>{label}</p>
+    <h2 className='text-2xl font-semibold text-gray-700 mb-4'>{label}</h2>
     <div className='flex w-full'>
       <input
         className='border rounded-md p-2 w-full'

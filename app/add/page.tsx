@@ -98,9 +98,11 @@ export default function Add() {
   }, [tags]);
 
   return (
-    <div className='flex flex-col gap-6'>
-      <h1 className='font-bold text-2xl'>새 레시피 추가</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
+    <div className='flex flex-col gap-8 p-8 max-w-7xl mx-auto bg-white shadow-lg rounded-lg'>
+      <h1 className='font-extrabold text-3xl text-gray-800 tracking-wide mb-4'>
+        새 레시피 추가
+      </h1>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-6'>
         <InputField
           htmlFor='title'
           type='text'
@@ -125,7 +127,7 @@ export default function Add() {
         />
         {tags.length > 0 && (
           <div>
-            <ul className='list-disc pl-5'>
+            <ul className='list-disc list-inside space-y-2'>
               {tags.map((t, index) => (
                 <li key={index}>{t}</li>
               ))}
@@ -146,7 +148,7 @@ export default function Add() {
         />
         {ingredients.length > 0 && (
           <div>
-            <ul className='list-disc pl-5'>
+            <ul className='list-disc list-inside space-y-2'>
               {ingredients.map((t, index) => (
                 <li key={index}>{t}</li>
               ))}
@@ -167,7 +169,7 @@ export default function Add() {
         />
         {steps.length > 0 && (
           <div>
-            <ol className='list-decimal pl-5'>
+            <ol className='list-decimal list-inside space-y-2'>
               {steps.map((t, index) => (
                 <li key={index}>{t}</li>
               ))}
@@ -177,7 +179,7 @@ export default function Add() {
 
         <button
           type='submit'
-          className='mt-3 bg-slate-500 w-fit px-6 py-2 rounded-md text-white'
+          className='mt-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-md transition duration-200 ease-in-out shadow-md'
         >
           레시피 저장
         </button>
