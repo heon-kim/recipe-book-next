@@ -1,7 +1,8 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect } from 'react';
+import Timer from '../../components/Timer';
 import {
   findRecipe,
   Recipe,
@@ -54,7 +55,8 @@ const Detail: React.FC = () => {
 
     const interval = setInterval(() => {
       setTimers((prev) => {
-        const newTime = prev[index] - 1;
+        const currentTime = prev[index];
+        const newTime = currentTime - 1;
         if (newTime <= 0) {
           clearInterval(interval);
           alert(`"${recipe?.steps[index]}" 타이머가 완료되었습니다.`);
@@ -103,29 +105,13 @@ const Detail: React.FC = () => {
           {recipe.steps.map((step, index) => (
             <li key={index} className='flex flex-col'>
               <span>{step}</span>
-              <div className='mt-2 flex items-center space-x-2'>
-                <input
-                  type='number'
-                  min='1'
-                  placeholder='시간 (초)'
-                  value={inputTimes[index] || ''}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleTimeChange(index, e.target.value)
-                  }
-                  className='border rounded px-2 py-1 w-32'
-                />
-                <button
-                  onClick={() => handleStartTimer(index)}
-                  className='bg-slate-500 text-white px-4 py-1 rounded'
-                >
-                  타이머 시작
-                </button>
-                {timers[index] > 0 && (
-                  <span className='text-red-500'>
-                    {new Date(timers[index] * 1000).toISOString().substr(14, 5)}
-                  </span>
-                )}
-              </div>
+              <Timer
+                index={index}
+                inputTime={inputTimes[index] || ''}
+                timer={timers[index] || 0}
+                onTimeChange={handleTimeChange}
+                onStartTimer={handleStartTimer}
+              />
             </li>
           ))}
         </ol>
